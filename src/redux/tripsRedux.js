@@ -23,6 +23,21 @@ export const getFilteredTrips = ({trips, filters}) => {
   }
 
   // TODO - sort by cost descending (most expensive goes first)
+  const compareFunction = (a, b) => {
+    const costA = a.cost.replace('$', '');
+    const costB = b.cost.replace('$', '');
+    if (parseInt(costA) < parseInt(costB)) {
+      return -1;
+    }
+    if (parseInt(costA) > parseInt(costB)) {
+      return 1;
+    } else {
+      return 0;
+    }
+  };
+
+  output.sort(compareFunction);
+
 
   return output;
 };
