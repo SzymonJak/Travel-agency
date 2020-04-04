@@ -5,13 +5,20 @@ import styles from './OrderForm.scss';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import PageTitle from '../../common/PageTitle/PageTitle';
 import OrderSummary from '../OrderSummary/OrderSummary';
+import OrderOption from '../OrderOption/OrderOption';
+import pricing from '../../../data/pricing.json';
 
 class OrderForm extends React.Component {
   render () {
-    const { cost, options } = this.props;
+    const { cost, options, setOrderOption } = this.props;
     return (
       <Grid>
         <Row>
+          {pricing.map(option => (
+            <Col md={4} key={option.id}>
+              <OrderOption {...option} currentValue={options[option.id]} setOrderOption={setOrderOption} />
+            </Col>
+          ))}
           <Col xs={12}>
             <PageTitle text='Trip options' />
             <OrderSummary tripCost={cost} orderOptions={options}/>
@@ -25,6 +32,7 @@ class OrderForm extends React.Component {
 OrderForm.propTypes = {
   cost: PropTypes.string,
   options: PropTypes.object,
+  setOrderOption: PropTypes.object,
 };
 
 export default OrderForm;
