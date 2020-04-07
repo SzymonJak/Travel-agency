@@ -13,14 +13,14 @@ class OrderForm extends React.Component {
     const { cost, options, setOrderOption } = this.props;
     return (
       <Grid>
+        <PageTitle text='Trip options' />
         <Row>
           {pricing.map(option => (
-            <Col md={4} key={option.id}>
+            <Col md={4} key={option.id} className={styles.optionBorder}>
               <OrderOption {...option} currentValue={options[option.id]} setOrderOption={setOrderOption} />
             </Col>
           ))}
           <Col xs={12}>
-            <PageTitle text='Trip options' />
             <OrderSummary tripCost={cost} orderOptions={options}/>
           </Col>
         </Row>
@@ -32,7 +32,7 @@ class OrderForm extends React.Component {
 OrderForm.propTypes = {
   cost: PropTypes.string,
   options: PropTypes.object,
-  setOrderOption: PropTypes.object,
+  setOrderOption: PropTypes.func,
 };
 
 export default OrderForm;

@@ -5,7 +5,7 @@ import styles from './OrderOption.scss';
 import Icon from '../../common/Icon/Icon';
 import { formatPrice } from '../../../utils/formatPrice';
 
-const OrderOptionIcons = ({values, required, setOptionValue}) => (
+const OrderOptionIcons = ({values, required, currentValue, setOptionValue}) => (
   <div className={styles.icon}>
     {required ? '' : (
       <div
@@ -18,7 +18,8 @@ const OrderOptionIcons = ({values, required, setOptionValue}) => (
 
     {values.map(value => (
       <div 
-        className={styles.icon} // how to check it should be active or not?
+        // className={styles.icon} how to check it should be active or not?
+        className={styles.icon + (currentValue === value.id ? ' ' + styles.iconActive : '')}
         key={value.id}
         onClick={() => setOptionValue(value.id)}
       >
@@ -33,6 +34,7 @@ const OrderOptionIcons = ({values, required, setOptionValue}) => (
 OrderOptionIcons.propTypes = {
   values: PropTypes.array,
   required: PropTypes.bool,
+  currentValue: PropTypes.string,
   setOptionValue: PropTypes.func,
 };
 
