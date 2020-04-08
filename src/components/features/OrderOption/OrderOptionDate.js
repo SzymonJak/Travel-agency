@@ -13,13 +13,21 @@ class OrderOptionDate extends React.Component {
     startDate: new Date(),
   };
 
+  handleSelect = date => {
+    this.setState({
+      startDate: date,
+    });
+  };
+
   render () {
     const {setOptionValue} = this.props;
+    
     return (
       <div className={styles.component}>
         <DatePicker className={styles.input}
           selected={this.state.startDate}
-          onChange={(event) => setOptionValue(event)}
+          onSelect={this.handleSelect}
+          onChange={event => setOptionValue(event)}
         > 
         </DatePicker>
       </div> 
