@@ -14,11 +14,11 @@ const TripSummary = ({id, image, name, cost, days, tags}) => (
           <span>{days} days</span>
           <span>from {cost}</span>
         </div>
-        <div className={styles.tags}>
-          {tags.map(tag => (
-            <span className={styles.tag} key={tag.toString()}>{tag}</span>
-          ))}
-        </div>
+        {tags.map(tag => (
+          <div key={tag.toString()} className={styles.tags}>
+            <span className={styles.tag}>{tag}</span>
+          </div>
+        ))}
       </article>
     </Link>
   </Col>
