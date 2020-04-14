@@ -113,6 +113,31 @@ for (let type in optionTypes) {
         });
         break;
       }
+      case 'icons': {
+        it('contains div with class icon', () => {
+          expect(renderedSubcomponent.exists('div.icon')).toEqual(true);
+        });
+
+        it('should change class on click', () => {
+          renderedSubcomponent.find('div.icon').at(3).simulate('click');
+          expect(mockSetOrderOption).toBeCalledTimes(1);
+        });
+        break;
+      }
+      case 'checkboxes': {
+        it('contains input with type="checkbox"', () => {
+          // console.log(renderedSubcomponent.debug());
+          expect(renderedSubcomponent.exists('input[type=\'checkbox\']')).toEqual(true);
+        });
+        it('should check right box on change', () => {
+          const input = renderedSubcomponent.find('input[value=\'' + testValue + '\']');
+          // const myCheckbox = input.find('[value=\'' + testValue + '\']');
+          input.simulate('change', {currentTarget: {checked: true}});
+          expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: [mockProps.currentValue, testValue] });
+          console.log(renderedSubcomponent.debug());
+        });
+        break;
+      }
     }
   });
 }
