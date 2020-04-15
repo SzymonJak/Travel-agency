@@ -1,6 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 import OrderOption from './OrderOption';
+import DatePicker from 'react-datepicker';
 
 describe ('Component OrderOption', () => {
   it('should render', () => {
@@ -134,7 +135,39 @@ for (let type in optionTypes) {
           // const myCheckbox = input.find('[value=\'' + testValue + '\']');
           input.simulate('change', {currentTarget: {checked: true}});
           expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: [mockProps.currentValue, testValue] });
-          console.log(renderedSubcomponent.debug());
+          // console.log(renderedSubcomponent.debug());
+        });
+        break;
+      }
+      case 'number': {
+        it('contains input', () => {
+          const input = renderedSubcomponent.find('input');
+          expect(input.length).toBe(1);
+        });
+        it('should run setOrderOption function on change', () => {
+          renderedSubcomponent.find('input').simulate('change', {currentTarget: {value: testValueNumber}});
+          expect(mockSetOrderOption).toBeCalledTimes(1);
+          expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: testValueNumber});
+        });
+        break;
+      }
+      case 'text': {
+        it('contains input', () => {
+          const input = renderedSubcomponent.find('input');
+          expect(input.length).toBe(1);
+        });
+        it('runs setOrderOption function on change', () => {
+          renderedSubcomponent.find('input').simulate('change', {currentTarget:{value: testValue}});
+          expect(mockSetOrderOption).toBeCalledTimes(1);
+          expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: testValue});
+        });
+        break;
+      }
+      case 'date': {
+        it('should run setOrderOption function on change', () => {
+          renderedSubcomponent.find(DatePicker).simulate('change', testValue);
+          expect(mockSetOrderOption).toBeCalledTimes(1);
+          expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: testValue});
         });
         break;
       }
