@@ -135,7 +135,7 @@ for (let type in optionTypes) {
           // const myCheckbox = input.find('[value=\'' + testValue + '\']');
           input.simulate('change', {currentTarget: {checked: true}});
           expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: [mockProps.currentValue, testValue] });
-          // console.log(renderedSubcomponent.debug());
+          console.log(input.debug());
         });
         break;
       }
