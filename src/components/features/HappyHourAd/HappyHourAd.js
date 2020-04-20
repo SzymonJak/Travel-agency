@@ -11,11 +11,30 @@ class HappyHourAd extends React.Component {
       promoDescription: 'It\'s your time! Take advantage of Happy Hour! All offers 20% off!',
     };
 
+    getCountdownTime(){
+      const currentTime = new Date();
+      const nextNoon = new Date(Date.UTC(currentTime.getUTCFullYear(), currentTime.getUTCMonth(), currentTime.getUTCDate(), 12, 0, 0, 0));
+
+      if(currentTime.getUTCHours() >= 12){
+        nextNoon.setUTCDate(currentTime.getUTCDate()+1);
+      }
+
+      return Math.round((nextNoon.getTime() - currentTime.getTime())/1000);
+    }
+
+    constructor(){
+      super();
+
+      setInterval(() => this.forceUpdate(), 1000);
+    }
+
     render (){
+      const countdown = this.getCountdownTime();
+
       return (
-        <div>
+        <div className={styles.component}>
           <h3 className={styles.title} title={this.state.title}></h3>
-          <div className={styles.promoDescription}></div>
+          <div className={styles.promoDescription}>{countdown > 82800 ? this.state.promoDescription : countdown}</div>
         </div>
       );
     }
