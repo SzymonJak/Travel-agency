@@ -9,6 +9,7 @@ class HappyHourAd extends React.Component {
     state = {
       title: 'Happy Hour',
       promoDescription: 'It\'s your time! Take advantage of Happy Hour! All offers 20% off!',
+      date: new Date(),
     };
 
     getCountdownTime(){
@@ -22,10 +23,21 @@ class HappyHourAd extends React.Component {
       return Math.round((nextNoon.getTime() - currentTime.getTime())/1000);
     }
 
-    constructor(){
-      super();
+    componentDidMount() {
+      this.timer = setInterval(
+        () => this.tick(),
+        1000
+      );
+    }
 
-      setInterval(() => this.forceUpdate(), 1000);
+    componentWillUnmount() {
+      clearInterval(this.timer);
+    }
+
+    tick() {
+      this.setState({
+        date: new Date(),
+      });
     }
 
     render (){
