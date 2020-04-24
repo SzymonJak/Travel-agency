@@ -33,7 +33,7 @@ describe ('Component HappyHourAd', () => {
     const expectedTitle = mockProps.title;
     const component = shallow(<HappyHourAd {...mockProps} />);
 
-    expect(component.find(select.title).prop('title')).toEqual(expectedTitle);
+    expect(component.find(select.title).text()).toEqual(expectedTitle);
   });
 });
 
