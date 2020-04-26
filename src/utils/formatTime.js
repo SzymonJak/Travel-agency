@@ -3,14 +3,6 @@ export const formatTime = arg => {
     return (
       null
     );
-  // } else if(typeof(arg) === 'string') {
-  //   return (
-  //     null
-  //   );
-  // } else if(arg.length === 0) {
-  //   return (
-  //     null
-  //   );
   }
   else if(arg < 0) {
     return (
