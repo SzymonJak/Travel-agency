@@ -5,8 +5,8 @@ import styles from './DaysToSummer.scss';
 class DaysToSummer extends React.Component {
 
   state = {
-    description: ' day to summer!',
-    description2: ' days to summer!',
+    daysDescription: ' days to summer!',
+    oneDayDescription: ' day to summer!',
   };
 
   getCountdownDate() {
@@ -15,30 +15,19 @@ class DaysToSummer extends React.Component {
     const nextSummer = new Date(Date.UTC(currentDate.getUTCFullYear(), 5, 21));
     const endOfSummer = new Date(Date.UTC(currentDate.getUTCFullYear(), 8, 22));
 
-    if(currentDate >= nextSummer && currentDate <= endOfSummer){
-      return '';
-    }
-
     if(currentDate.getUTCMonth() >= 8){
       nextSummer.setUTCFullYear(currentDate.getUTCFullYear()+1);
     }
 
-    return Math.round(Math.abs((currentDate - nextSummer) / oneDay));
-  }
-
-  setDescription() {
-    const currentDate = new Date();
-    const nextSummer = new Date(Date.UTC(currentDate.getUTCFullYear(), 5, 21));
-    const endOfSummer = new Date(Date.UTC(currentDate.getUTCFullYear(), 8, 22));
+    const daysToSummer = Math.round(Math.abs((currentDate - nextSummer) / oneDay));
 
     if(currentDate >= nextSummer && currentDate <= endOfSummer){
       return '';
     }
-    
-    if(Date.UTC(currentDate.getUTCMonth(), currentDate.getUTCDate()) === Date.UTC(5, 20)){
-      return this.state.description;
+    if(daysToSummer === 1){
+      return daysToSummer + this.state.oneDayDescription;
     } else {
-      return this.state.description2;
+      return daysToSummer + this.state.daysDescription;
     }
   }
     
@@ -46,7 +35,6 @@ class DaysToSummer extends React.Component {
     return(
       <div className={styles.component}>
         <div className={styles.countdown}>{this.getCountdownDate()}</div>
-        <p className={styles.title}>{this.setDescription()}</p>
       </div>
     );
   }

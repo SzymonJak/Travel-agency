@@ -3,7 +3,8 @@ import {shallow} from 'enzyme';
 import DaysToSummer from './DaysToSummer';
 
 const mockProps = {
-  title: ' days to summer!',
+  daysDescription: ' days to summer!',
+  oneDayDescription: ' day to summer!',
   check: '',
 };
 
@@ -16,7 +17,6 @@ describe('Component DaysToSummer', () => {
   it('should render countdown', () => {
     const component = shallow(<DaysToSummer />);
     expect(component.exists('.countdown')).toEqual(true);
-    expect(component.exists('.title')).toEqual(true);
   });
 });
 
@@ -36,7 +36,7 @@ const mockDate = customDate => class extends Date {
   }
 };
 
-const checkDescriptionAtDate = (date, expectedNumber, expectedDescription) => {
+const checkDescriptionAtDate = (date, expectedNumber) => {
   it(`should show correct number at ${date}`, () => {
     global.Date = mockDate(`${date}T11:57:58.135Z`);
 
@@ -44,16 +44,13 @@ const checkDescriptionAtDate = (date, expectedNumber, expectedDescription) => {
     const renderedDate = component.find('.countdown').text();
     expect(renderedDate).toEqual(expectedNumber);
 
-    const renderedDescription = component.find('.title').text();
-    expect(renderedDescription).toEqual(expectedDescription);
-
     global.Date = trueDate;
   });
 };
 
 describe('Component DaysToSummer with mocked date', () => {
-  checkDescriptionAtDate('2020-05-14', '38', mockProps.title);
-  checkDescriptionAtDate('2020-06-20', '1', ' day to summer!');
-  checkDescriptionAtDate('2020-10-01', '263', mockProps.title);
-  checkDescriptionAtDate('2020-06-22', mockProps.check, mockProps.check);
+  checkDescriptionAtDate('2020-05-14', '38' + mockProps.daysDescription);
+  checkDescriptionAtDate('2020-06-20', '1' + mockProps.oneDayDescription);
+  checkDescriptionAtDate('2020-10-01', '263' + mockProps.daysDescription);
+  checkDescriptionAtDate('2020-06-22', mockProps.check);
 });
